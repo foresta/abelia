@@ -9,12 +9,25 @@ class View {
     private $vars;
     private $sanitizedVars;
 
+    private $isSeperate;
+
+
+    const DEVICE_PC = 1;
+    const DEVICE_SP = 2;
+
     public function __construct(){
         $this->vars = array();
         $this->sanitizedVars = array();
     }
 
-    public function display(){
+    public function output($isSeperateAssets = false){
+        $deviceStr = $this->getDeviceStr($isSeperateAssets);
+        
+        // define assets directroy path
+        define('IMG_DIR', $deviceStr . '/images/');
+        define('JS_DIR', $deviceStr . '/javascripts/');
+        define('CSS_DIR', $deviceStr . '/stylesheets/');
+        define('FONT_DIR', $deviceStr . '/fonts/');
         $this->sanitizeHtml();
         if($this->sanitizedVars) extract($this->sanitizedVars);
         require_once($this->templateName);
@@ -33,9 +46,50 @@ class View {
         return $this;
     }
 
-    public function setTemplate($name){
-        $this->templateName = VIEW_DIR . $name . '.html';
+    /*
+     * htmlのテンプレートファイルを設定します
+     * @param : name 
+     *     テンプレートファイル名
+     * @param : isSeperateDevice
+     *     スマートフォンとPCでテンプレートを分けるかどうかのフラグ
+     * @return : this
+     */
+    public function setTemplate($name, $isSeperateDevice = false)
+        $deviceStr = $this->getDeviceStr($isSeperateDevice); 
+        $this->templateName = VIEW_DIR . $deviceStr . '/' . $name . '.html';
         return $this;
+    }
+
+    protected function getDevice(){
+        $ua = $this->getUA();
+        if (    strpos($ua, 'iPhone') !== false ||
+                (strpos($ua, 'Android') !== false && strpos($ua, 'Mobile') !== false) ||
+                strpos($ua, 'Windows Phone') !== false ||
+                strpos($ua, 'BlackBerry') !== false
+        ) {
+            return self::DEVICE_SP; 
+        }
+
+        return self::DEVICE_PC;
+    }
+
+    private function getDeviceStr($isSeperate){
+
+        if ( !$isSeperate )
+            return '';
+    
+        switch($this->getDevice()){
+            case self::DEVICE_PC:
+                return 'pc';
+            case self::DEVICE_SP:
+                return 'sp';
+            default:
+                return '';
+        }
+    }
+
+    private function getUA(){
+        return Request::getServer('HTTP_USER_AGENT');
     }
 
     protected function sanitizeHtml(){
