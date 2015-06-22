@@ -68,16 +68,11 @@ if ( Request::issetServer('HTTPS') && Request::getServer('HTTPS') == 'on')
 else
     $http = "http://";
 
-define('VIEW_DIR', APP_DIR . 'views/' . $carr . '/');
+define('VIEW_DIR', APP_DIR . 'views/');
 define('CONTROLLER_DIR', APP_DIR . 'controllers/');
-define('MODEL_DIR', APP_DIR . 'models/');
+define('MODEL_DIR', APP_DIR . 'models');
 define('MAIL_TEMPLATE', APP_DIR . 'views/mail/');
 define('SHARE_DIR', VIEW_DIR . 'shared/');
-
-// public DIR define
-define('IMG_DIR', $carr .'/image/');
-define('JS_DIR',  $carr .'/js/');
-define('CSS_DIR', $carr .'/css/');
 
 // access host define
 define('HOST',  $http . Request::getServer('HTTP_HOST'));
