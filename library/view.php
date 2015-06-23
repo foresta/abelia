@@ -54,7 +54,7 @@ class View {
      *     スマートフォンとPCでテンプレートを分けるかどうかのフラグ
      * @return : this
      */
-    public function setTemplate($name, $isSeperateDevice = false)
+    public function setTemplate($name, $isSeperateDevice = false) {
         $deviceStr = $this->getDeviceStr($isSeperateDevice); 
         $this->templateName = VIEW_DIR . $deviceStr . '/' . $name . '.html';
         return $this;
