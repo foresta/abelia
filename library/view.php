@@ -24,10 +24,10 @@ class View {
         $deviceStr = $this->getDeviceStr($isSeperateAssets);
         
         // define assets directroy path
-        define('IMG_DIR', $deviceStr . '/images/');
-        define('JS_DIR', $deviceStr . '/javascripts/');
-        define('CSS_DIR', $deviceStr . '/stylesheets/');
-        define('FONT_DIR', $deviceStr . '/fonts/');
+        define('IMG_DIR',  HOST . $deviceStr . '/images/');
+        define('JS_DIR',   HOST . $deviceStr . '/javascripts/');
+        define('CSS_DIR',  HOST . $deviceStr . '/stylesheets/');
+        define('FONT_DIR', HOST . $deviceStr . '/fonts/');
         $this->sanitizeHtml();
         if($this->sanitizedVars) extract($this->sanitizedVars);
         require_once($this->templateName);
