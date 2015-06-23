@@ -34,7 +34,6 @@ define('PUBLIC_DIR', __DIR__ . '/../public/');
 // library file
 require_once(LIB_DIR . 'request.php');
 require_once(LIB_DIR . 'base.php');
-require_once(LIB_DIR . 'apiBase.php');
 require_once(LIB_DIR . 'restApiBase.php');
 require_once(LIB_DIR . 'view.php');
 require_once(LIB_DIR . 'database.php');
