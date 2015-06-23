@@ -12,7 +12,6 @@ class Routes {
      */
     private static $map = array (
         '/' => 'IndexController',
-//      '/users/list' => '/users/ListController',
 
         // 上記のルーティングに該当しない場合以下のデフォルトのコントローラが呼ばれる
         'default' => 'ErrorController'
@@ -27,8 +26,8 @@ class Routes {
     public static function exec($requestPath){
         $controllerClassName = 
             array_key_exists($requestPath, self::map) 
-                ? self::map[$requestPath] 
-                : self::map['default'];
+                ? self::$map[$requestPath] 
+                : self::$map['default'];
 
         $controllerFileName = $controllerName . '.php';
         $filePath = CONTROLLER_DIR . $controllerFileName;
