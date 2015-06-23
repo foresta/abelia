@@ -1,6 +1,6 @@
 <?php
 
-abstract class RESTApiBase extends ApiBase{
+abstract class RESTApiBase extends BaseController{
 
   const ID = 'id';
 
