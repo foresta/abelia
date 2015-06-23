@@ -30,7 +30,9 @@ class Routes {
                 : self::$map['default'];
 
         $controllerPathes = explode('/', $controllerFilePath);
-        $className = array_pop($controllerPathes);
+        $className = is_array($controllerPathes) 
+                        ? array_pop($controllerPathes)
+                        : $controllerPathes;
 
         $filePath = CONTROLLER_DIR . $controllerFilePath . '.php';
         if (file_exists($filePath))
