@@ -48,26 +48,6 @@ require_once(LIB_DIR . 'functions.php');
 require_once(LIB_DIR . 'query.php');
 require_once(LIB_DIR . 'cache.php');
 
-// UserAgentに応じて処理を切り分ける
-$ua = Request::getServer('HTTP_USER_AGENT');
-$carr = '';
-if (strpos($ua, 'iPhone') !== false ||
-    (strpos($ua, 'Android') !== false && strpos($ua, 'Mobile') !== false) ||
-    strpos($ua, 'Windows Phone') !== false ||
-    strpos($ua, 'BlackBerry') !== false
-    ) {
-    $carr = 'sp';
-}
-else {
-    $carr = 'pc';
-}
-
-$http = "";
-if ( Request::issetServer('HTTPS') && Request::getServer('HTTPS') == 'on')
-    $http = "https://";
-else
-    $http = "http://";
-
 define('VIEW_DIR', APP_DIR . 'views/');
 define('CONTROLLER_DIR', APP_DIR . 'controllers/');
 define('MODEL_DIR', APP_DIR . 'models');
@@ -75,29 +55,16 @@ define('MAIL_TEMPLATE', APP_DIR . 'views/mail/');
 define('SHARE_DIR', VIEW_DIR . 'shared/');
 
 // access host define
+$isTLS =  Request::issetServer('HTTPS') && Request::getServer('HTTPS') == 'on';
+$http = $isTLS ? "https://" : "http://";
 define('HOST',  $http . Request::getServer('HTTP_HOST'));
 
 // リクエストされたURIに応じてコントローラを呼び出す
 $uri = Request::getServer('REQUEST_URI');
-// 末尾の / を削除
-$uri = preg_replace("/\/$/", "", $uri);
-
 // QueryStringと分ける
 $uris = explode('?', $uri);
 $uri = $uris[0];
-$uri = preg_replace('/^\//', '', $uri);
 
-if(empty($uri)){
-    $uri = 'index';
-}
-
-$className = str_replace(' ', '_', ucwords(str_replace('/', ' ', $uri)));
-$filepath = CONTROLLER_DIR . $uri . '.php';
-if(file_exists($filepath)){
-    require_once($filepath);
-    new $className;
-}
-else{
-    header('HTTP/1.1 404 Not Found');
-    require_once(__DIR__ . '/' . $carr . '/error.html');
-}
+equire_once(CONF_DIR . 'routes.php');
+Routes::exec($uri);
+exit;
