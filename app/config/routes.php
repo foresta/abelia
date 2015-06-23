@@ -4,7 +4,7 @@
 /*
  * ルーティングを管理するためのクラスです
  */
-public class Routes {
+class Routes {
 
 
     /*
