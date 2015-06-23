@@ -79,6 +79,7 @@ define('HOST',  $http . Request::getServer('HTTP_HOST'));
 
 // リクエストされたURIに応じてコントローラを呼び出す
 $uri = Request::getServer('REQUEST_URI');
+// 末尾の / を削除
 $uri = preg_replace("/\/$/", "", $uri);
 
 // QueryStringと分ける
