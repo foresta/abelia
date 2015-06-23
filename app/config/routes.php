@@ -10,7 +10,7 @@ class Routes {
     /*
      * URIとコントローラのマッピング用配列
      */
-    const map = array (
+    private static $map = array (
         '/' => 'IndexController',
 //      '/users/list' => '/users/ListController',
 
