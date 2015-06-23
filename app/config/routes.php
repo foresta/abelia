@@ -41,9 +41,9 @@ class Routes {
             new $className;
         }
         else {
-            $filePath = CONTROLLER_DIR . $map['default'] . '.php';
+            $filePath = CONTROLLER_DIR . self::$map['default'] . '.php';
             require_once($filePath);
-            new $map['default'];
+            new self::$map['default'];
         }
     }        
 }
