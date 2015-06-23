@@ -29,7 +29,7 @@ class Routes {
                 ? self::$map[$requestPath] 
                 : self::$map['default'];
 
-        $controllerFileName = $controllerName . '.php';
+        $controllerFileName = $controllerClassName . '.php';
         $filePath = CONTROLLER_DIR . $controllerFileName;
         if (file_exists($filePath))
         {
