@@ -25,7 +25,7 @@ class Routes {
      */ 
     public static function exec($requestPath){
         $controllerClassName = 
-            array_key_exists($requestPath, self::map) 
+            array_key_exists($requestPath, self::$map) 
                 ? self::$map[$requestPath] 
                 : self::$map['default'];
 
