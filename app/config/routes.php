@@ -24,17 +24,19 @@ class Routes {
      *  URI‚ÌHOST•”•ª‚ð‚Ì‚¼‚¢‚½ƒpƒX
      */ 
     public static function exec($requestPath){
-        $controllerClassName = 
+        $controllerFilePath = 
             array_key_exists($requestPath, self::$map) 
                 ? self::$map[$requestPath] 
                 : self::$map['default'];
 
-        $controllerFileName = $controllerClassName . '.php';
-        $filePath = CONTROLLER_DIR . $controllerFileName;
+        $controllerPathes = explode('/', $controllerFilePath);
+        $className = array_pop($controllerPathes);
+
+        $filePath = CONTROLLER_DIR . $controllerFilePath . '.php';
         if (file_exists($filePath))
         {
             require_once($filePath);
-            new $controllerClassName;
+            new $className;
         }
         else {
             $filePath = CONTROLLER_DIR . $map['default'] . '.php';
