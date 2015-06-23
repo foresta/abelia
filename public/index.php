@@ -64,6 +64,6 @@ $uri = Request::getServer('REQUEST_URI');
 $uris = explode('?', $uri);
 $uri = $uris[0];
 
-equire_once(CONF_DIR . 'routes.php');
+require_once(CONF_DIR . 'routes.php');
 Routes::exec($uri);
 exit;
