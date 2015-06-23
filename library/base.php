@@ -2,7 +2,7 @@
 
 require_once(CONF_DIR . 'db_conf.php');
 
-abstract class Base {
+abstract class BaseController {
 
     protected $view;
     protected $dbConf;
