@@ -15,7 +15,7 @@ class Routes {
 //      '/users/list' => '/users/ListController',
 
         // 上記のルーティングに該当しない場合以下のデフォルトのコントローラが呼ばれる
-        'default' => 'ErrorController',
+        'default' => 'ErrorController'
     );
 
 
